@@ -1,11 +1,579 @@
-@import 'tailwindcss';
+/* ===============================
+    Base
+================================ */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+    background: #fafafa;
+    margin: 0;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+a {
+    text-decoration: none;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+
+
+/* ===============================
+    Header
+================================ */
+.header {
+    background: #000;
+    padding: 14px 24px;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* 左ロゴ */
+.logo {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+
+/* ===============================
+    Search
+================================ */
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-box {
+    width: 60%;
+    max-width: 420px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-btn {
+    padding: 8px 14px;
+    background: #333;
+    border-radius: 6px;
+    border: 1px solid #444;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-btn:hover {
+    background: #666;
+}
+
+
+
+/* ===============================
+    Right Menu
+================================ */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-link {
+    color: white;
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.header-link:hover {
+    background: white;
+    color: #000;
+}
+
+
+
+/* ===============================
+    Main
+================================ */
+.main {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+    padding-top: 120px;
+    display: block;
+}
+
+
+
+/* ===============================
+    Register / Login
+================================ */
+.auth-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 0;
+}
+
+.auth-card{
+    width:480px;
+    background:white;
+    padding:32px;
+    border-radius:10px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.15);
+}
+
+.auth-title{
+    font-size:22px;
+    margin-bottom:22px;
+}
+
+.auth-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:16px;
+}
+
+.auth-group label{
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.auth-group input{
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.auth-btn{
+    width:100%;
+    padding:10px;
+    background:#333;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.auth-btn:hover{
+    opacity:.85;
+}
+
+.auth-link{
+    text-align:center;
+    margin-top:10px;
+}
+
+.error-box{
+    background:#fff5f5;
+    border:2px solid #e60000;
+    border-radius:6px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    color:#e60000;
+}
+
+.error-box li{
+    margin-left:20px;
+}
+
+/* ===============================
+    Mypage
+================================ */
+.mypage-wrapper .item-list{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:20px;
+}
+
+.mypage-wrapper .item-card{
+    border:1px solid #ddd;
+    padding:10px;
+    border-radius:6px;
+    background:#fff;
+    display:flex;
+    gap:12px;
+}
+
+.mypage-wrapper .item-img{
+    width:120px;
+    border-radius:6px;
+}
+
+.mypage-wrapper .price{
+    font-weight:bold;
+}
+
+/* =========================
+
+    ▼▼ プロフィール画面 ▼▼
+
+========================= */
+
+.profile-wrapper{
+    max-width:900px;
+    margin:40px auto;
+}
+
+.title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.profile-card{
+    display:flex;
+    gap:25px;
+    padding:25px;
+    background:#fff;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+/* グレー丸アイコン */
+.profile-icon{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:#e5e5e5;
+}
+
+/* 右側情報 */
+.profile-info p{
+    margin:7px 0;
+    font-size:15px;
+}
+
+.edit-btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:8px 18px;
+    border-radius:6px;
+    border:1px solid #ff4f4f;
+    color:#ff4f4f;
+}
+
+/* =========================
+
+    ▼▼ 編集画面 ▼▼
+
+========================= */
+
+.profile-edit-wrapper{
+    max-width:900px;
+    margin:40px auto;
+}
+
+.edit-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.profile-edit-card{
+    padding:25px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.profile-edit-card label{
+    display:block;
+    font-size:14px;
+    margin-top:18px;
+}
+
+.profile-edit-card input{
+    width:100%;
+    padding:10px;
+    margin-top:7px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.save-btn{
+    margin-top:25px;
+    padding:10px 20px;
+    width:200px;
+    border:none;
+    color:#fff;
+    background:#ff4f4f;
+    border-radius:6px;
+}
+
+/* ===============================
+    Items List
+================================ */
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+/* 全体グリッド */
+.items-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* カード */
+.item-card a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.item-image {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.item-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* 商品名と価格 */
+.item-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 6px 0 2px;
+}
+
+.item-price {
+    color: #444;
+}
+
+/* ===============================
+    show Item
+================================ */
+.detail-container{
+    max-width:1100px;
+    margin:30px auto;
+    display:flex;
+    gap:40px;
+}
+
+.detail-left{
+    position:relative;
+}
+
+.detail-image{
+    width:420px;
+    border-radius:10px;
+}
+
+.sold-badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:red;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    font-weight:700;
+}
+
+.detail-right{
+    flex:1;
+}
+
+.detail-title{
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.detail-brand{
+    color:#555;
+    margin-bottom:8px;
+}
+
+.detail-price{
+    font-size:26px;
+    font-weight:800;
+    margin:10px 0;
+}
+
+.detail-category{
+    margin-bottom:10px;
+    color:#555;
+}
+
+.detail-condition{
+    margin-bottom:14px;
+}
+
+.detail-section-title{
+    font-size:18px;
+    margin-top:20px;
+}
+
+.detail-description{
+    line-height:1.8;
+}
+
+.detail-buy-btn{
+    display:inline-block;
+    padding:10px 18px;
+    width: 140px;
+    background:#f44308;
+    color:white;
+    border-radius:6px;
+    font-weight: bold;
+}
+
+.sold-message{
+    color:red;
+    font-weight:700;
+    margin-top:12px;
+}
+
+.icon-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.icon-btn img,
+.comment-icon img {
+    width: 28px;
+    height: 28px;
+    display: block;
+    object-fit: contain;
+}
+
+.comment-icon {
+    display: flex;
+    align-items: centers;
+    gap: 6px;
+}
+
+.icon-area span {
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+/*  address */
+.address-card{
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.address-card h2{
+    margin-bottom: 20px;
+}
+
+.form-group{
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input{
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+}
+
+.submit-btn{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: white;
+    background: #ff4f4f;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* purchase */
+.purchase-wrapper{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 左全体 */
+.purchase-left{
+    width: 65%;
+}
+
+.purchase-img{
+    width: 120px;
+    border-radius: 6px;
+}
+
+.item-info{
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.price{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 右側のまとめカード */
+.purchase-summary{
+    width: 28%;
+}
+
+.summary-box{
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+/* 変更するボタン */
+.address-change{
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* 購入ボタン */
+.buy-btn{
+    width: 100%;
+    padding: 12px;
+    background: #ff4f4f;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
 }
