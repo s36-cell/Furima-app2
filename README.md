@@ -27,26 +27,26 @@ Laravel を使用したフリマアプリケーションです。  ユーザー
 git clone git@github.com:s36-cell/Furima-app2.git
 cd furima-app
 ### ② .env設定
-cp .env.example .env
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=laravel
-DB_PASSWORD=laravel
+・cp .env.example .env
+・DB_CONNECTION=mysql
+・DB_HOST=db
+・DB_PORT=3306
+・DB_DATABASE=laravel
+・DB_USERNAME=laravel
+・DB_PASSWORD=laravel
 ---
 ### ③ Docker 起動
-docker compose up -d
+・docker compose up -d
 ---
 ### ④ Laravel 初期設定
-docker exec -it laravel-app bash
-cd src
-composer install
-php artisan key:generate
-php artisan migrate
-php artisan db:seed
-php artisan storage:link
-exit
+・docker exec -it laravel-app bash
+・cd src
+・composer install
+・php artisan key:generate
+・php artisan migrate
+・php artisan db:seed
+・php artisan storage:link
+・exit
 ---
 ### ⑤ アクセス
 - トップページ：http://localhost/
