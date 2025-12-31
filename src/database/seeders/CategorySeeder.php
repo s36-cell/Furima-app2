@@ -3,12 +3,16 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
     public function run(): void
     {
+        // ⭐ 外部キー制約 OFF
+        Schema::disableForeignKeyConstraints();
+
         Category::truncate();
 
         Category::insert([
@@ -19,5 +23,8 @@ class CategorySeeder extends Seeder
             ['name' => 'コスメ'],
             ['name' => 'その他'],
         ]);
+
+        // ⭐ 外部キー制約 ON
+        Schema::enableForeignKeyConstraints();
     }
 }

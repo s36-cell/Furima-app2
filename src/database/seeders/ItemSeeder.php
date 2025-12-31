@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Category;
@@ -11,12 +13,21 @@ class ItemSeeder extends Seeder
 {
     public function run(): void
     {
-        // 既存削除
+        // 🔥 外部キー停止
+        Schema::disableForeignKeyConstraints();
+
+        // 🔥 先に中間テーブル削除
+        DB::table('category_item')->truncate();
+
+        // 🔥 items 削除
         Item::truncate();
 
-        // ユーザー保証
+        // 🔥 外部キー再開
+        Schema::enableForeignKeyConstraints();
+
+        // ⭐ ユーザー保証
         $user = User::first() ?? User::factory()->create([
-            'name' => 'testuser',
+            'name'  => 'testuser',
             'email' => 'test@example.com',
         ]);
 
@@ -124,15 +135,16 @@ class ItemSeeder extends Seeder
         ];
 
         foreach ($items as $data) {
+
             $item = Item::create([
-                'user_id' => $user->id,
-                'name' => $data['name'],
-                'price' => $data['price'],
-                'brand' => $data['brand'],
+                'user_id'     => $user->id,
+                'name'        => $data['name'],
+                'price'       => $data['price'],
+                'brand'       => $data['brand'],
                 'description' => $data['description'],
-                'image_path' => $data['image_path'],
-                'condition' => $data['condition'],
-                'is_sold' => $data['is_sold'],
+                'image_path'  => $data['image_path'],
+                'condition'   => $data['condition'],
+                'is_sold'     => $data['is_sold'],
             ]);
 
             $item->categories()->sync(

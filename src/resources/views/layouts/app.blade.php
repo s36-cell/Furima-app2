@@ -30,11 +30,13 @@
         <div class="header-right">
 
             @auth
-                <a href="{{ route('logout')}}" class="header-link"
+                <a href="{{ route('logout')}}" class="header-link header-btn-black"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     ログアウト
                 </a>
-                <a href="{{ route('mypage.index') }}" class="header-link">マイページ</a>
+                <a href="{{ route('items.create') }}"
+                    class="header-link header-btn-white">出品</a>
+                <a href="{{ route('mypage.index') }}" class="header-link header-btn-black">マイページ</a>
                 <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                     @csrf
                 </form>

@@ -14,32 +14,14 @@
 
         <hr>
 
-        {{-- 🔥 支払い方法（左に置く！） --}}
-        <label>支払い方法</label>
-        <select id="payment-select"
-                name="payment_method"
-                form="purchase-form">
-            <option value="">選択してください</option>
-            <option value="コンビニ払い"
-                {{ old('payment_method')=='コンビニ払い' ? 'selected' : '' }}>
-                コンビニ払い
-
-            </option>
-            <option value="クレジットカード"
-                {{ old('payment_method')=='クレジットカード' ? 'selected' : '' }}>
-                クレジットカード
-            </option>
-        </select>
-
-        @if ($errors->has('payment_method'))
-            <p style="color:red;">
-            {{ $errors->first('payment_method') }}
-            </p>
-        @endif
-
-
 
         <h3>配送先</h3>
+
+        @if ($errors->has('address_error'))
+            <p style="color:red;">
+                {{ $errors->first('address_error') }}
+            </p>
+        @endif
 
         @if($address)
             <p>
@@ -48,7 +30,7 @@
                 {{ $address->building }}
             </p>
         @else
-            <p>住所が登録されていません</p>
+            <p style="color:red;">住所が登録されていません</p>
         @endif
 
         <a href="{{ route('purchase.address.edit', $item->id) }}">
@@ -74,6 +56,29 @@
                 action="{{ route('purchase.complete', $item) }}"
                 method="POST">
             @csrf
+
+                    {{-- 🔥 支払い方法（左に置く！） --}}
+        <label>支払い方法</label>
+        <select id="payment-select"
+                name="payment_method"
+                form="purchase-form">
+            <option value="">選択してください</option>
+            <option value="コンビニ払い"
+                {{ old('payment_method')=='コンビニ払い' ? 'selected' : '' }}>
+                コンビニ払い
+
+            </option>
+            <option value="クレジットカード"
+                {{ old('payment_method')=='クレジットカード' ? 'selected' : '' }}>
+                クレジットカード
+            </option>
+        </select>
+
+        @if ($errors->has('payment_method'))
+            <p style="color:red;">
+                {{ $errors->first('payment_method') }}
+            </p>
+        @endif
 
             <button class="detail-buy-btn">
                 購入する

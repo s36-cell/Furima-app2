@@ -2,25 +2,33 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 🔥 外部キー制約を一時的に OFF
+        Schema::disableForeignKeyConstraints();
 
+        // 🔥 users を初期化（重複エラー防止）
+        User::truncate();
+
+        // ⭐ テストユーザー作成
         User::factory()->create([
-            'name' => 'Test User',
+            'name'  => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // 🔥 外部キー制約を ON に戻す
+        Schema::enableForeignKeyConstraints();
+
+        // ⭐ 他 Seeder 実行
         $this->call([
             CategorySeeder::class,
             ItemSeeder::class,

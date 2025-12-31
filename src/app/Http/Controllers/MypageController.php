@@ -9,9 +9,31 @@ class MypageController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        return view('mypage.index', compact('user'));
+        // 出品した商品
+        $sellItems = \App\Models\Item::where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        // 購入した商品
+        $buyItems = \App\Models\Item::where('buyer_id', $user->id)
+            ->where('is_sold', true)
+            ->latest()
+            ->get();
+
+        // マイリスト（いいね）
+        $likeItems = $user->likes()
+            ->with('item')
+            ->get()
+            ->pluck('item');   // item だけ取り出す
+
+        return view('mypage.index', compact(
+            'user',
+            'sellItems',
+            'buyItems',
+            'likeItems'
+        ));
     }
 
     public function profile()
@@ -40,12 +62,12 @@ class MypageController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'profile_image' => 'nullable|image|max:2048',
-            'name'        => 'required',
+            'profile_image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'name'        => 'required|string|max:20',
             'email'       => 'required|email',
-            'postal_code' => 'nullable',
-            'address'     => 'nullable',
-            'phone'       => 'nullable',
+            'postal_code' => 'nullable|regex:/^\d{3}-\d{4}$/',
+            'address'     => 'nullable|string|max:255',
+            'phone'       => 'nullable|regex:/^[0-9-]+$/',
         ]);
 
         $user = auth()->user();

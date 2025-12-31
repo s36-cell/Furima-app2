@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+    // =========================
     // 購入画面表示
+    // =========================
     public function show(Item $item)
     {
         $user = Auth::user();
@@ -18,7 +20,6 @@ class PurchaseController extends Controller
             return back()->with('error', 'この商品は売り切れです。');
         }
 
-        // ★ users.address カラムではなく、addresses テーブルから取得
         $address = Address::where('user_id', $user->id)->first();
 
         session(['purchase_item_id' => $item->id]);
@@ -26,17 +27,21 @@ class PurchaseController extends Controller
         return view('purchase.show', compact('item', 'address'));
     }
 
+    // =========================
     // 住所編集画面
+    // =========================
     public function addressEdit(Item $item)
     {
         session(['purchase_item_id' => $item->id]);
 
         $address = Address::where('user_id', Auth::id())->first();
 
-        return view('purchase.address', compact('item', 'address'));
+        return view('purchase.address_edit', compact('item', 'address'));
     }
 
+    // =========================
     // 住所更新
+    // =========================
     public function addressUpdate(Request $request, Item $item)
     {
         $request->validate([
@@ -47,10 +52,8 @@ class PurchaseController extends Controller
 
         $user = Auth::user();
 
-        // addressesテーブルを user_id で更新 or 作成
         Address::updateOrCreate(
             ['user_id' => $user->id],
-
             [
                 'postal_code' => $request->postal_code,
                 'address'     => $request->address,
@@ -59,13 +62,24 @@ class PurchaseController extends Controller
         );
 
         return redirect()
-            ->route('purchase.show', $item->id)
+            ->route('purchase.show',session('purchase_item_id'))
             ->with('message', '住所を更新しました');
     }
 
+    // =========================
     // 購入確定
+    // =========================
     public function complete(Request $request, Item $item)
     {
+        // 住所が無ければ買えない
+        $address = Address::where('user_id', Auth::id())->first();
+
+        if (!$address || empty($address->postal_code) || empty($address->address)) {
+            return back()->withErrors([
+                'address' => '住所が登録されていないため購入できません。住所を登録してください。'
+            ])->withInput();
+        }
+
         // 支払い方法チェック
         $request->validate(
             ['payment_method' => 'required'],
@@ -74,16 +88,15 @@ class PurchaseController extends Controller
 
         $user = Auth::user();
 
-        // SOLD・購入者IDを更新
+        // SOLD処理
         $item->is_sold  = true;
         $item->buyer_id = $user->id;
         $item->save();
 
-        // ★ ここも string ではなく Address モデルを渡す
-        $address = Address::where('user_id', $user->id)->first();
-
         $payment_method = $request->payment_method;
 
-        return view('purchase.complete', compact('item', 'address', 'payment_method'));
+        return view('purchase.complete',
+            compact('item', 'address', 'payment_method')
+        );
     }
 }

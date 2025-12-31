@@ -11,7 +11,7 @@
         {{-- アイコン（画像無いならグレー丸） --}}
         <div class="profile-icon">
             @if($user->profile_image)
-                <img src="{{ asset('storage/' . $user->profile_image) }}" 
+                <img src="{{ asset('storage/' . $user->profile_image) }}"
                     style="width:90px;height:90px;border-radius:50%;object-fit:cover;">
             @else
                 {{-- グレー丸 --}}

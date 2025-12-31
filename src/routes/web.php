@@ -40,9 +40,8 @@ Route::middleware('auth')->group(function () {
         ->name('mypage.edit');
     Route::post('/mypage/profile', [MypageController::class, 'update'])
         ->name('mypage.update');
-    Route::get('/mypage/buy', [MypageController::class, 'buy'])
-        ->name('mypage.buy');
-    Route::get('/mypage/sell', [MypageController::class, 'sell'])->name('mypage.sell');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
 
 });
 // ===============================//
