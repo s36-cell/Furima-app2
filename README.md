@@ -49,21 +49,19 @@ cd furima-app
 - exit
 ---
 ### ⑤ アクセス
-- トップページ：http://localhost/
+- トップページ(商品一覧)：http://localhost/
 - ログイン：http://localhost/login
 - 新規登録：http://localhost/register
-- 商品一覧：http://localhost/items
 - 商品詳細：http://localhost/items/{id}
 - 出品ページ：http://localhost/items/create
 - マイページ：http://localhost/mypage
-- プロフィール編集：http://localhost/mypage/edit
-- 購入ページ：http://localhost/purchase/{item}
-- 画像：http://localhost/storage/...
+- プロフィール編集：http://localhost/mypage/profile/edit
+- 購入ページ：http://localhost/items/{item}/purchase
 ---
 ### メール送信について
 本アプリのメール送信は開発用メールサービスを使用しています。
 
-- MailHog を使用している場合
+- MailHog を使用
   http://localhost:8025 でメールを確認できます
 
 ### 認証手順
