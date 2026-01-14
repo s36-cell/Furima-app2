@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ItemStoreRequest;
 
 class ItemController extends Controller
 {
@@ -53,18 +54,8 @@ class ItemController extends Controller
     }
 
     // 出品登録処理
-    public function store(Request $request)
+    public function store(ItemStoreRequest $request)
     {
-        $request->validate([
-            'image'        => 'required|image|max:2048',
-            'name'         => 'required|string|max:255',
-            'price'        => 'required|integer|min:1',
-            'condition'    => 'required|string',
-            'brand_name'   => 'nullable|string|max:255',
-            'description'  => 'nullable|string',
-            'categories'   => 'required|array',       // チェックボックス
-            'categories.*' => 'exists:categories,id', // 存在チェック
-        ]);
 
         // 画像アップロード
         $path = $request->file('image')->store('item_images', 'public');
