@@ -67,7 +67,7 @@ cd furima-app
 ### 認証手順
 1. 新規登録
 2. 認証待ち画面へ遷移
-3. MailHog / Mailtrap でメールを確認
+3. MailHogでメールを確認
 4. 認証リンクをクリックして完了
 
 ## ER図

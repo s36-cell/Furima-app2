@@ -6,11 +6,9 @@ services:
       dockerfile: docker/php/Dockerfile
     container_name: laravel-app
     volumes:
-      - ./:/var/www/html
+      - ./src:/var/www/html
     depends_on:
       - db
-
-
 
   web:
     image: nginx:latest
